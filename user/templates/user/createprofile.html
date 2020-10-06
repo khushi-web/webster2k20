@@ -1,0 +1,27 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock head %}
+{% block body %}
+
+    <div class="container mt-5 contact-section">
+
+        <h1>Complete your Details</h1>
+        <div class="border"></div>
+        <form class="contact-form" action="{% url 'createprofile' %}" method="post">
+          {% csrf_token %}
+          <input type="text" class="contact-form-text my-4" placeholder="Gender" name="gender" required>
+          <input type="date" class="contact-form-text my-4" placeholder="Date of birth" name="dob" required>
+          <input type="text" class="contact-form-text my-4" placeholder="Course" name="course" required>
+          <input type="date" class="contact-form-text my-4" placeholder="Year" name="year" required>
+          <input type="number" class="contact-form-text my-4" placeholder="Phone" name="phone" required>
+          <input type="text" class="contact-form-text my-4" placeholder="Location" name="address" required>
+          <input type="text" class="contact-form-text my-4" placeholder="College name" name="college" >
+          <input type="text" class="contact-form-text my-4" placeholder="College address" name="college_add" >
+          
+          <input type="submit" class="contact-form-btn" value="Save">
+        </form>
+      </div>
+      
+{% endblock body %}
