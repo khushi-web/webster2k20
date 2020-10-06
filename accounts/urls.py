@@ -1,11 +1,15 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 
 
-
-
+''' from here redirecting to individual app
+as per the logged in is admin or user '''
 urlpatterns = [
     path('login/',views.loginpage,name="login"),
     path('register/',views.registerpage,name="register"),
-    path('home/', views.homepage, name="home")
+    
+    path('logout/', views.logoutuser, name="logout"),
+    path('user/', include('user.urls')),
+    path('controller/', include('controller.urls')),
+    path('forbidden/', views.forbidden, name="forbidden"),
 ]
