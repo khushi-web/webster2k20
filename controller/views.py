@@ -4,6 +4,8 @@ from user.models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Applicants,CollegeAmbassdor
+from django.core.mail import EmailMessage
+from django.conf import settings
 # Create your views here.
 @login_required(login_url='login') # when user is not logged in 
 @admin_only #only admin has right to this page. we can also add multiple users like staff etc.
@@ -47,6 +49,16 @@ def confirmApplication(request,id):
         print(pro.college_name)
         pro.is_ambassdor=True
         pro.save()
+        email = item.applicant.email
+        email_subject=' webILICOUS'
+        message='Congratulations!!! You are selected as ambassdor for your college'
+        email_message = EmailMessage(
+        email_subject,
+        message,
+        settings.EMAIL_HOST_USER,
+        [email]
+        )
+        email_message.send()
         messages.success(request,'Application for user '+pro.student.email +' confirmed')
         print(pro.student.email)
         it=Applicants.objects.get(pk=id)
