@@ -37,7 +37,10 @@
         <td>{{ ite.app_email }}</td>
         <td>{{ ite.app_clg }}</td>
         <td>{{ ite.dateregisteres }}</td>
-
+        <td>
+         
+        <a href="{%url 'completedetails' ite.id %}" class="btn btn-info text-white">View</a>
+        </td>
         
 
 
@@ -46,7 +49,7 @@
 
       {% else %}
 
-      <h6 style="margin-top: 100px;color: #c9302c"> You have not created any jobs </h6>
+      <h6 style="margin-top: 100px;color: #c9302c"> No applications present!!! </h6>
 
       {% endif %}
 {% endblock body %}
