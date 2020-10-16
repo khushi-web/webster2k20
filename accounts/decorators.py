@@ -6,11 +6,11 @@ from . import views
 
 def unauthenticated_user(view_func):
     def wrapper_func(request, *args, **kwargs):
-        if request.user.is_authenticated:# if user is authenticated 
+        if request.user.is_authenticated:  # if user is authenticated 
             return redirect('home')
         else:
-            return view_func(request, *args, **kwargs) # otherwise calling
-            #this function will execute all steps from the views.py file 
+            return view_func(request, *args, **kwargs)   # otherwise calling
+            # this function will execute all steps from the views.py file 
 
     return wrapper_func
 
