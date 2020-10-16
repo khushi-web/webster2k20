@@ -8,3 +8,11 @@ class Applicants(models.Model):
     dateregisteres= models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return str(self.applicant)
+
+class CollegeAmbassdor(models.Model):
+    college=models.CharField(max_length=255)
+    ambassdor=models.ForeignKey(User,on_delete=models.CASCADE)
+    def __str__(self):
+        return self.college
+        
+    
