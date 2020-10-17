@@ -42,7 +42,7 @@ def next_month(d):
     return month
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
-    login_url = 'signup'
+    login_url = 'login'
     model = Event
     template_name = 'calendar.html'
 
@@ -72,12 +72,12 @@ def create_event(request):
             end_time=end_time
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
-    return render(request, 'user/event.html', {'form': form})
+    return render(request, 'calendarapp/event.html', {'form': form})
 
 class EventEdit(generic.UpdateView):
     model = Event
     fields = ['title', 'description', 'start_time', 'end_time']
-    template_name = 'event.html'
+    templates = 'event.html'
 
 @login_required
 def event_details(request, event_id):
@@ -87,7 +87,7 @@ def event_details(request, event_id):
         'event': event,
         'eventmember': eventmember
     }
-    return render(request, 'user/event-details.html', context)
+    return render(request, 'calendarapp/event-details.html', context)
 
 
 def add_eventmember(request, event_id):
@@ -109,7 +109,7 @@ def add_eventmember(request, event_id):
     context = {
         'form': forms
     }
-    return render(request, 'user/add_member.html', context)
+    return render(request, 'calendarapp/add_member.html', context)
 
 class EventMemberDeleteView(generic.DeleteView):
     model = EventMember

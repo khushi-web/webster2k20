@@ -1,4 +1,5 @@
 from django.urls import path,include
+from django.conf.urls import url
 from . import views
 
 
@@ -10,6 +11,7 @@ urlpatterns = [
     
     path('logout/', views.logoutuser, name="logout"),
     path('user/', include('user.urls')),
+    path('calendarapp/',include('calendarapp.urls')),
     path('controller/', include('controller.urls')),
     path('forbidden/', views.forbidden, name="forbidden"),
 ]

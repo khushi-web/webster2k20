@@ -10,7 +10,8 @@ class EventForm(ModelForm):
       'start_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
       'end_time': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
     }
-    exclude = ['user']
+   # exclude = ['user']
+    exclude = ['admin']
 
   def __init__(self, *args, **kwargs):
     super(EventForm, self).__init__(*args, **kwargs)
@@ -19,9 +20,9 @@ class EventForm(ModelForm):
     self.fields['end_time'].input_formats = ('%Y-%m-%dT%H:%M',)
 
 
-class SignupForm(forms.Form):
-  username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
-  password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+#class SignupForm(forms.Form):
+ # username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+  #password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
 
 
 class AddMemberForm(forms.ModelForm):
