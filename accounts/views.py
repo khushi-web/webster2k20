@@ -78,3 +78,7 @@ def userpage(request):
 def forbidden(request):
     context={}
     return render(request, 'accounts/forbidden.html', context)
+
+def paypage(request):
+    context={}
+    return render(request, 'accounts/payment.html', context)
