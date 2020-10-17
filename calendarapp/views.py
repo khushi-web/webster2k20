@@ -5,6 +5,7 @@ from datetime import datetime, date
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
+from django.views.generic import TemplateView
 from django.utils.safestring import mark_safe
 from datetime import timedelta
 import calendar
