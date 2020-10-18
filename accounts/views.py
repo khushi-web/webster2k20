@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user, allowed_users, admin_only
 from django.contrib.auth.models import Group
+from django.core.mail import send_mail
+from django.conf import settings
 
 #admin can see all the pages  but students cannot 
 
@@ -28,7 +30,15 @@ def registerpage(request):
                 # displays a message on successful registration of user 
             group = Group.objects.get(name='students') # what this does is since now only students will signup so they
             # are automatically pushed into students group
-            user.groups.add(group)           
+            user.groups.add(group) 
+            #send_mail(subject,message,from_email,to_list,fail_silently=True)
+            subject='registering'
+            message='thankyou for registering . your account has been created successfully'
+            from_email = settings.EMAIL_HOST_USER
+            to_list = [user.email, settings.EMAIL_HOST_USER]
+            
+            send_mail(subject,message,from_email,to_list,fail_silently=True)
+
             messages.success(request, 'Account was created for ' + username)
                 # immediately redirects to login
             return redirect('login')
