@@ -1,0 +1,55 @@
+
+{% extends 'controller/base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock head %}
+{% block body %}
+<h5>Applied students </h5>
+{% if item %}
+
+
+<div class="  mt-5 table-responsive">
+  <table class="table table-hover table-dark  " style="background-color:black" >
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Name</th>
+        <th scope="col">email</th>
+        <th scope="col">clg name</th>
+        <th scope="col">applied</th>
+        <th scope="col">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {%  for ite in item %}
+
+
+
+
+      <tr>
+
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ ite.applicant }}</td>
+        <td>{{ ite.app_email }}</td>
+        <td>{{ ite.app_clg }}</td>
+        <td>{{ ite.dateregisteres }}</td>
+        <td>
+         
+        <a href="{%url 'completedetails' ite.id %}" class="btn btn-info text-white">View</a>
+        </td>
+        
+
+
+      </tr>
+      {% endfor %}
+
+      {% else %}
+
+      <h6 style="margin-top: 100px;color: #c9302c"> No applications present!!! </h6>
+
+      {% endif %}
+{% endblock body %}

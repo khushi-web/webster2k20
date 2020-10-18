@@ -1,0 +1,14 @@
+
+
+{% extends 'controller/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock head %}
+{% block body %}
+
+<h1>hello {{ request.user }} logged in as admin</h1>
+{% endblock body %}
+
+
+
