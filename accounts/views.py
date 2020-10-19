@@ -81,14 +81,32 @@ def homepage(request):
     context={}
     return render(request,'accounts/home.html', context)
 
+#directs to the userpage
 def userpage(request):
     context={}
     return render(request, 'accounts/user.html', context)
 
+#redirects to the forbidden page
 def forbidden(request):
     context={}
     return render(request, 'accounts/forbidden.html', context)
 
+#redirects to the payment page
+@login_required(login_url='login')
 def paypage(request):
+    if request.method == 'POST':
+        user=request.POST.get('email')
+ #send_mail(subject,message,from_email,to_list,fail_silently=True)
+        subject='payment'
+        message='thankyou for registering for the event . your payement from ******** has been recieved'
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [user, settings.EMAIL_HOST_USER]
+            
+        send_mail(subject,message,from_email,to_list,fail_silently=True)
+        return redirect('paycheck')
     context={}
     return render(request, 'accounts/payment.html', context)
+
+def paycheck(request):
+    context={}
+    return render(request, 'accounts/paycheck.html', context)

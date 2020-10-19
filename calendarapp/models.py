@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 from django.contrib.auth.models import User
 
-class Event(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Event(models.Model): #creating the event post for the users to see the list of events organised by the 
+    user = models.ForeignKey(User, on_delete=models.CASCADE) #campus ambassador 
     title = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     start_time = models.DateTimeField()
