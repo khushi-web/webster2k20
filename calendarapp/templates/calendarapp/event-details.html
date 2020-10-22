@@ -15,18 +15,20 @@ Event Details
             <h3>Event Name: {{ event.title }}</h3>
             <p>From <span style="color: gray;">{{ event.start_time }}</span> To <span style="color: gray;">{{ event.end_time }}</span></p>
             <hr>
-            <p>{{ event.description }}</p>
-            <h3>Amount</h3>
+            <p>About Event:{{ event.description }}</p>
+            <h4>Amount:{{ event.amount }}</h4>
         </div>
         <hr>
         <div class="clearfix">
             <h4 class="left" > Members of this Event</h4>
             <a class="btn btn-success right" href="{% url 'calendarapp:add_eventmember' event.id %}"> Add Member </a>
         </div>
-        <table class="table table-bordered">
+        <!--<table class="table table-bordered">-->
+        <div class="  mt-5 table-responsive">
+        <table class="table table-hover table-dark  " style="background-color:black" >
             <thead>                  
                 <tr>
-                  <th style="width: 10px">#</th>
+                  <th style="width: 10px">S.No.</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Payment Status</th>
@@ -40,9 +42,9 @@ Event Details
                   <!--  <td>{{ member.user.first_name }} {{ member.user.last_name }}</td> -->
                     <td>{{ member.user.username }}</td>
                     <td>{{ member.user.email }}</td>
-                    <td><a class="btn btn-info" href="{% url 'calendarapp:remove_event' member.id %}">Amount Status</a></td>
+                    <td><a class="btn btn-info text-white" href="{% url 'calendarapp:remove_event' member.id %}">Amount Status</a></td>
                     <td>
-                        <a class="btn btn-danger" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
+                        <a class="btn btn-danger text-white" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
                     </td>
                 </tr>
                 {% endfor %}

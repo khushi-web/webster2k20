@@ -3,6 +3,9 @@
 
 from datetime import datetime, date
 from django.shortcuts import render, redirect
+from accounts.decorators import unauthenticated_user, allowed_users, admin_only
+from user.models import Profile
+from controller.models import CollegeAmbassdor
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.views.generic import TemplateView
@@ -21,7 +24,14 @@ from .forms import EventForm, AddMemberForm
 
 @login_required
 def index(request):
-    return HttpResponse('hello')
+    pro=Profile.objects.get(student=User)
+    print(pro.college_name)
+    if pro.is_ambassdor==True:
+        return redirect(calendar)
+
+
+
+    #return HttpResponse('hello')
 
 def get_date(req_day):
     if req_day:
