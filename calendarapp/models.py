@@ -11,6 +11,7 @@ class Event(models.Model): #creating the event post for the users to see the lis
     description = models.TextField()
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+    amount = models.FloatField()
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

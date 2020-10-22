@@ -63,6 +63,7 @@ def create_event(request):
     if request.POST and form.is_valid():
         title = form.cleaned_data['title']
         description = form.cleaned_data['description']
+        amount = form.cleaned_data['amount']
         start_time = form.cleaned_data['start_time']
         end_time = form.cleaned_data['end_time']
         Event.objects.get_or_create(
@@ -70,6 +71,7 @@ def create_event(request):
             title=title,
             description=description,
             start_time=start_time,
+            amount=amount,
             end_time=end_time
         )
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
@@ -77,7 +79,7 @@ def create_event(request):
 
 class EventEdit(generic.UpdateView):
     model = Event
-    fields = ['title', 'description', 'start_time', 'end_time']
+    fields = ['title', 'description', 'start_time', 'end_time','amount']
     template_name = 'event.html'
 
 @login_required

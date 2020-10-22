@@ -16,6 +16,7 @@ Event Details
             <p>From <span style="color: gray;">{{ event.start_time }}</span> To <span style="color: gray;">{{ event.end_time }}</span></p>
             <hr>
             <p>{{ event.description }}</p>
+            <h3>Amount</h3>
         </div>
         <hr>
         <div class="clearfix">
@@ -27,8 +28,8 @@ Event Details
                 <tr>
                   <th style="width: 10px">#</th>
                   <th>Name</th>
-                  <th>Username</th>
                   <th>Email</th>
+                  <th>Payment Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -36,9 +37,10 @@ Event Details
                 {% for member in eventmember %}
                 <tr role="row">
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ member.user.first_name }} {{ member.user.last_name }}</td>
+                  <!--  <td>{{ member.user.first_name }} {{ member.user.last_name }}</td> -->
                     <td>{{ member.user.username }}</td>
                     <td>{{ member.user.email }}</td>
+                    <td><a class="btn btn-info" href="{% url 'calendarapp:remove_event' member.id %}">Amount Status</a></td>
                     <td>
                         <a class="btn btn-danger" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
                     </td>
