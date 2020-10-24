@@ -5,10 +5,13 @@ Add EventMember
 {% endblock %}
 
 {% block content %}
+{% if perms.calendarapp.add_eventmember %}
 <div class="clearfix">
   <a class="btn btn-info left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
 </div>
-
+{% else %}
+<h3>You Are not Authorized</h3>
+{% endif %}
 <form method="post">
   {% csrf_token %}
   <table class="form form-table">

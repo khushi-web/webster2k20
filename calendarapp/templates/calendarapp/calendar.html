@@ -1,6 +1,7 @@
 {% extends 'calendarapp/base.html' %}
 
 {% block content %}
+{% if perms.calendarapp.view_event %}
 <div class="clearfix">
     <span class="left m-2" style="font-size: 20px;">Wellcome, {{ request.user }}</span>
     <a class="btn btn-info right" href="{% url 'logout' %}"> Logout </a>
@@ -8,6 +9,10 @@
     <a class="btn btn-info right mr-2" href="{% url 'calendarapp:calendar' %}?{{ prev_month }}"> << Previous Month </a>
     <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_new' %}"> + New Event </a>
 </div>
+{% else %}
+<a class="btn btn-info right" href="{% url 'logout' %}"> Logout </a>
+{% endif %}
+
 <div style="color: rgb(0, 218, 189);">
     {{ calendar }}
 </div>

@@ -2,6 +2,7 @@
 # cal/views.py
 
 from datetime import datetime, date
+from django.http import request
 from django.shortcuts import render, redirect
 from accounts.decorators import unauthenticated_user, allowed_users, admin_only
 from user.models import Profile
@@ -12,26 +13,60 @@ from django.views.generic import TemplateView
 from django.utils.safestring import mark_safe
 from datetime import timedelta
 import calendar
-from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.views import redirect_to_login
+from django.shortcuts import redirect
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 
 
 from .models import *
 from .utils import Calendar
 from .forms import EventForm, AddMemberForm
 
-@login_required
-def index(request):
-    pro=Profile.objects.get(student=User)
-    print(pro.college_name)
-    if pro.is_ambassdor==True:
-        return redirect(calendar)
+#def index(request):
+ #   pro=Profile.objects.get(student=User)
+  #  print(pro.college_name)
+   # if pro.is_ambassdor==True:
+    #    return redirect(calendar)
 
 
 
     #return HttpResponse('hello')
+# for inscription register the right group
+def inscription(request):
+    g = Group.objects.get(name='CollegeAmbassdor')
+    user = User()
+    "etc"
+    user.groups.add(g)
+    user.save()
+        
+
+    
+#To login
+def loggedPage(request):
+    userGroup = Group.objects.get(user=request.user).name
+    if userGroup == 'CollegeAmbassdor':
+        # "do some stuff"
+        return redirect('calendarapp:calendar')
+    elif (userGroup=='admin' or userGroup=='students'):
+        # "do some other stuff"    
+        return redirect('user')   
+    #else userGroup=='students':
+     #    return redirect('user') 
+@login_required
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, 'calendarapp/calendar.html',{ 'name':request.user.username})
+    else:
+        return HttpResponse('/login/')         
+
+
 
 def get_date(req_day):
     if req_day:
@@ -53,11 +88,12 @@ def next_month(d):
     return month
 
 class CalendarView(LoginRequiredMixin, generic.ListView):
+   # permission_required = 'event.view_event'
     login_url = 'login'
     model = Event
     template_name = 'calendar.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):      
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
         cal = Calendar(d.year, d.month)
@@ -66,9 +102,12 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
         return context
+                
+
+
 
 @login_required
-def create_event(request):    
+def create_event(request):   
     form = EventForm(request.POST or None)
     if request.POST and form.is_valid():
         title = form.cleaned_data['title']
@@ -87,7 +126,22 @@ def create_event(request):
         return HttpResponseRedirect(reverse('calendarapp:calendar'))
     return render(request, 'calendarapp/event.html', {'form': form})
 
-class EventEdit(generic.UpdateView):
+ #class UserAccessMixin(PermissionRequiredMixin):
+  #   def dispatch(self, request, *args, **kwargs):
+   #      if(not self.request.user.is_authenticated):
+    #         return redirect_to_login(self.request.get_full_path(),
+     #        self.get_login_url(),self.get_redirect_field_name())
+#
+ #         if not self.has_permission():
+  #            return redirect('/login')  
+   #        return super(UserAccessMixin, self).dispatch(request, *args, **kwargs)       
+
+class EventEdit( generic.UpdateView):
+   # raise_exception=False
+    #permission_required = 'event.edit_event'
+    #permission_denied_message="You are not an Ambassdor"
+    #login_url='/login/'
+    #redirect_field_name='login'
     model = Event
     fields = ['title', 'description', 'start_time', 'end_time','amount']
     template_name = 'event.html'
@@ -104,13 +158,14 @@ def event_details(request, event_id):
 
 
 def add_eventmember(request, event_id):
+    #if request.user.user.is_ambassdor:
     forms = AddMemberForm()
     if request.method == 'POST':
         forms = AddMemberForm(request.POST)
         if forms.is_valid():
             member = EventMember.objects.filter(event=event_id)
             event = Event.objects.get(id=event_id)
-            if member.count() <= 9:
+            if request.user.is_authenticated:
                 user = forms.cleaned_data['user']
                 EventMember.objects.create(
                     event=event,
