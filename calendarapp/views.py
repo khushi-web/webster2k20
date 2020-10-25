@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 from django.utils.safestring import mark_safe
 from datetime import timedelta
 import calendar
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
@@ -107,24 +108,30 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
 
 
 @login_required
-def create_event(request):   
-    form = EventForm(request.POST or None)
-    if request.POST and form.is_valid():
-        title = form.cleaned_data['title']
-        description = form.cleaned_data['description']
-        amount = form.cleaned_data['amount']
-        start_time = form.cleaned_data['start_time']
-        end_time = form.cleaned_data['end_time']
-        Event.objects.get_or_create(
-            user=request.user,
-            title=title,
-            description=description,
-            start_time=start_time,
-            amount=amount,
-            end_time=end_time
-        )
-        return HttpResponseRedirect(reverse('calendarapp:calendar'))
-    return render(request, 'calendarapp/event.html', {'form': form})
+def create_event(request):
+    pro=Profile.objects.get(student_id=request.user.id)
+    print(pro.is_ambassdor) 
+    if pro.is_ambassdor == True:  
+        form = EventForm(request.POST or None)
+        if request.POST and form.is_valid():
+            title = form.cleaned_data['title']
+            description = form.cleaned_data['description']
+            amount = form.cleaned_data['amount']
+            start_time = form.cleaned_data['start_time']
+            end_time = form.cleaned_data['end_time']
+            Event.objects.get_or_create(
+                user=request.user,
+                title=title,
+                description=description,
+                start_time=start_time,
+                amount=amount,
+                end_time=end_time
+            )
+            return HttpResponseRedirect(reverse('calendarapp:calendar'))
+        return render(request, 'calendarapp/event.html', {'form': form})
+    else:
+        messages.error(request,'u r not an ambassdor')
+        return redirect('calendarapp:calendar')
 
  #class UserAccessMixin(PermissionRequiredMixin):
   #   def dispatch(self, request, *args, **kwargs):
