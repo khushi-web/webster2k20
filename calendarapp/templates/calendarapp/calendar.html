@@ -27,6 +27,20 @@
               <button type="submit" class="fas fa-search"></button>
           </form>
       </nav>
+      
+      {%for message in messages%}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+       <strong>message:</strong> {{ message }}
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div> 
+     {% endfor %}
+             
+     
+     
+     
+     
       <script>
         const menuBtn = document.querySelector(".menu-icon span");
         const searchBtn = document.querySelector(".search-icon");

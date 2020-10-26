@@ -24,6 +24,7 @@ from django.contrib.auth.views import redirect_to_login
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
+from django.contrib import messages
 
 
 from .models import *
@@ -62,9 +63,12 @@ def loggedPage(request):
      #    return redirect('user') 
 @login_required
 def index(request):
-    if request.user.is_authenticated:
-        return render(request, 'calendarapp/calendar.html',{ 'name':request.user.username})
+    pro=Profile.objects.get(student_id=request.user.id)
+    print(pro.is_ambassdor)
+    if pro.is_ambassdor==True:
+        return redirect('calendarapp/calendar.html')
     else:
+        messages.error(request,'You are not authorized')
         return HttpResponse('/login/')         
 
 
@@ -94,24 +98,26 @@ class CalendarView(LoginRequiredMixin, generic.ListView):
     model = Event
     template_name = 'calendar.html'
 
-    def get_context_data(self, **kwargs):      
-        context = super().get_context_data(**kwargs)
-        d = get_date(self.request.GET.get('month', None))
-        cal = Calendar(d.year, d.month)
-        html_cal = cal.formatmonth(withyear=True)
-        context['calendar'] = mark_safe(html_cal)
-        context['prev_month'] = prev_month(d)
-        context['next_month'] = next_month(d)
-        return context
-                
+    def get_context_data(self, **kwargs):  
+         context = super().get_context_data(**kwargs)
+         d = get_date(self.request.GET.get('month', None))
+         cal = Calendar(d.year, d.month)
+         html_cal = cal.formatmonth(withyear=True)
+         context['calendar'] = mark_safe(html_cal)
+         context['prev_month'] = prev_month(d)
+         context['next_month'] = next_month(d)
+         return context
+       
 
 
 
 @login_required
 def create_event(request):
+    messages.success(request, ' Event Created Successfully ')
     pro=Profile.objects.get(student_id=request.user.id)
     print(pro.is_ambassdor) 
-    if pro.is_ambassdor == True:  
+    if pro.is_ambassdor == True:
+        messages.success(request, 'welcome !!!')  
         form = EventForm(request.POST or None)
         if request.POST and form.is_valid():
             title = form.cleaned_data['title']
@@ -130,7 +136,7 @@ def create_event(request):
             return HttpResponseRedirect(reverse('calendarapp:calendar'))
         return render(request, 'calendarapp/event.html', {'form': form})
     else:
-        messages.error(request,'u r not an ambassdor')
+        messages.warning(request,"u r not an ambassdor")
         return redirect('calendarapp:calendar')
 
  #class UserAccessMixin(PermissionRequiredMixin):
@@ -155,6 +161,7 @@ class EventEdit( generic.UpdateView):
 
 @login_required
 def event_details(request, event_id):
+    messages.info(request, 'Event edit successfully')
     pro=Profile.objects.get(student_id=request.user.id)
     print(pro.is_ambassdor)
     if pro.is_ambassdor == True:  
@@ -172,6 +179,7 @@ def event_details(request, event_id):
 
 
 def add_eventmember(request, event_id):
+    messages.info(request, 'hello')
     #if request.user.user.is_ambassdor:
     forms = AddMemberForm()
     if request.method == 'POST':
