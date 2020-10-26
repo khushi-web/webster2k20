@@ -51,10 +51,8 @@ def confirmApplication(request,id):
         pro=Profile.objects.get(student=ambassdor)
         print(pro.college_name)
         pro.is_ambassdor=True
-        user=pro.save()
-        group=Group.objects.get(name='CollegeAmbassdor')
-        user.student.groups.add(group)
-
+        pro.save()
+    
         email = item.applicant.email
         email_subject=' webILICOUS'
         message='Congratulations!!! You are selected as ambassdor for your college'
