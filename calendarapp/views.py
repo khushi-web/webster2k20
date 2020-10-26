@@ -155,13 +155,20 @@ class EventEdit( generic.UpdateView):
 
 @login_required
 def event_details(request, event_id):
-    event = Event.objects.get(id=event_id)
-    eventmember = EventMember.objects.filter(event=event)
-    context = {
+    pro=Profile.objects.get(student_id=request.user.id)
+    print(pro.is_ambassdor)
+    if pro.is_ambassdor == True:  
+        event = Event.objects.get(id=event_id)
+        eventmember = EventMember.objects.filter(event=event)
+        context = {
         'event': event,
         'eventmember': eventmember
-    }
-    return render(request, 'calendarapp/event-details.html', context)
+        }
+        return render(request, 'calendarapp/event-details.html', context)
+    else:
+        messages.error(request,'u r not an ambassdor')
+        return redirect('calendarapp:calendar')
+
 
 
 def add_eventmember(request, event_id):
