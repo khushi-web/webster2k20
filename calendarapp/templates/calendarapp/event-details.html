@@ -6,14 +6,11 @@ Event Details
 
 {% block content %}
     <div class="container">
-        {% if perms.calendarapp.view_event %}
         <div class="clearfix">
             <a class="btn btn-primary left" href="{% url 'calendarapp:calendar' %}"> Calendar </a>
             <a class="btn btn-info right mr-2" href="{% url 'calendarapp:event_edit' event.pk %}"> Edit Event </a>
         </div>
-        {% else %}
-        <h3>Not Authorized</h3>
-        {% endif %}
+        
         
         <div class="clearfix">
             <h3>Event Name: {{ event.title }}</h3>
@@ -25,10 +22,9 @@ Event Details
         <hr>
         <div class="clearfix">
             <h4 class="left" > Members of this Event</h4>
-            {% if perms.calendarapp.view_event %}
+           
             <a class="btn btn-success right" href="{% url 'calendarapp:add_eventmember' event.id %}"> Add Member </a>
-            {% else %}
-            {% endif %}
+           
         </div>
         <!--<table class="table table-bordered">-->
         <div class="  mt-5 table-responsive">
@@ -38,11 +34,10 @@ Event Details
                   <th style="width: 10px">S.No.</th>
                   <th>Name</th>
                   <th>Email</th>
-                  {% if perms.calendarapp.view_event %}
+                  
                   <th>Payment Status</th>
                   <th>Action</th>
-                  {% else %}
-                  {% endif %}
+            
                 </tr>
               </thead>
               <tbody>
@@ -52,13 +47,12 @@ Event Details
                   <!--  <td>{{ member.user.first_name }} {{ member.user.last_name }}</td> -->
                     <td>{{ member.user.username }}</td>
                     <td>{{ member.user.email }}</td>
-                    {% if perms.calendarapp.view_event %}
+                    
                     <td><a class="btn btn-info text-white" href="{% url 'calendarapp:remove_event' member.id %}">Amount Status</a></td>
                     <td>
                         <a class="btn btn-danger text-white" href="{% url 'calendarapp:remove_event' member.id %}">Remove</a>
                     </td>
-                    {% else %}
-                    {% endif %}
+                   
                 </tr>
                 {% endfor %}
               </tbody>
