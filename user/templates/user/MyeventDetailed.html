@@ -1,0 +1,51 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock head %}
+{% block body %}
+
+<div class="container  my-5">
+        <table class="table table-striped">
+                <thead>
+                        <tr>
+                                <th scope="col">Name of Event</th>
+                                <th scope="col">{{event.name}}</th>
+                        </tr>
+                </thead>
+                <thead>
+                        <tr>
+                                <th scope="col">Description</th>
+                                <th scope="col" class="{% cycle 'row1' 'row2' %}">
+                                        {{event.description}}</th>
+                        </tr>
+                </thead>
+                <thead>
+                        <tr>
+                                <th scope="col">Event Fees</th>
+                                <th scope="col">{{event.fees}}</th>
+                        </tr>
+                </thead>
+                <thead>
+                        <tr>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">{{event.dateCreated}}</th>
+                        </tr>
+                </thead>
+                <thead>
+                        <tr>
+                                <th scope="col">Date Hosting</th>
+                                <th scope="col">{{event.dateHost}}</th>
+                        </tr>
+                </thead>
+                
+
+        </table>
+
+
+       
+</div>
+
+
+
+{% endblock body %}

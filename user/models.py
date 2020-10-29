@@ -29,3 +29,9 @@ class Events(models.Model):
     dateHost = models.DateField()
     def __str__(self):
         return self.name
+
+class EventMembers(models.Model):
+    event = models.ForeignKey(Events, on_delete=models.CASCADE)
+    member = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.member)

@@ -34,8 +34,8 @@
         <li><a href="{%url 'createEvent'%}">create event</a></li>
         <li><a href="{%url 'myCreatedEvents'%}">My created Events</a></li>
         {% else %}
-        <li><a href="#}">View events</a></li>
-        <li><a href="#}">Applied events</a></li>
+        <li><a href="{%url 'viewEvents'%}">View events</a></li>
+        <li><a href="{%url 'appliedEvents'%}">Applied events</a></li>
         {% endif %}
         <li><a href="{%url 'logout'%}">logout</a></li>
         

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Profile,Events
+from .models import Profile,Events,EventMembers
 from controller.models import Applicants
 from django.contrib.auth.models import User
 # Create your views here.
@@ -86,7 +86,9 @@ def apply(request):
     context ={'item' : profile}
     return render(request,'user/home.html',context)
 
-
+#to create a event 
+#only ambassdor is shown this option
+#thou we also have  a check for some smart userss
 def createEvent(request):
     if request.method == "POST":
         name = request.POST['name']
@@ -124,27 +126,32 @@ def createEvent(request):
         return render(request, 'user/createEvent.html',context)
 
         
-#where company can view all job vacancies it posted and can edit it,delete,view appicant
+#for campus ambassdor to view events he has created
 def myCreatedEvents(request):
 
     try:
         profile = Profile.objects.get(student_id=request.user.id)
-        myeventS = Events.objects.filter(hoster_id = profile.id)
-        context = {'myeventS': myeventS,'item' : profile}
-        print(myeventS)
+        events = Events.objects.filter(hoster_id = profile.id)
+        context = {'events': events,'item' : profile}
+        
     except:
-        myeventS = []
-        context = {'myeventS': myeventS,'item' : profile}
-        print(myeventS)
+        events = []
+        context = {'events': events,'item' : profile}
+        
 
-    return render(request,'user/myevents.html',context)
-                
+    return render(request,'user/ViewEvents.html',context)
+
+
+#this function is used to return details of a particular event
+#used when ambassdor views the detailed view of his created event 
+#and secondly when a non ambassdor views the details of event of his colleges(note : not of his applied events)
 def eventDetails(request,id):
     profile = Profile.objects.get(student_id=request.user.id)
     event = Events.objects.get(pk=id)
     context = {'event': event,'item' : profile}
     return render(request,'user/EventDetails.html',context)
 
+#to delete a event only hoster has the right to delete ;else noone can
 def deleteEvent(request,id):
     profile = Profile.objects.get(student_id=request.user.id)
     item=Events.objects.get(pk=id)
@@ -155,3 +162,61 @@ def deleteEvent(request,id):
     else:
         messages.warning(request,'u r not authorized to delete it')
         return redirect('user') 
+
+# this function is for non-ambassdors
+#to view the events created for his college
+def viewEvents(request):
+    try:
+        profile = Profile.objects.get(student_id=request.user.id)
+        print(profile.college_name)
+        events = Events.objects.filter(college = profile.college_name)
+        context = {'events': events,'item' : profile}
+        
+    except:
+        events = []
+        
+        context = {'events': events,'item' : profile}
+    return render(request,'user/Viewevents.html',context)
+
+#when a non-ambassdor requests to be a part of the corr event
+def addMember(request,id):
+    item= Events.objects.get(pk=id)
+    profile = Profile.objects.get(student_id=request.user.id)
+    
+    try:
+        members = EventMembers.objects.get(event_id=item.id,member_id=profile.id)
+        print(members)
+        messages.warning(request,'already added')
+        return redirect('user') 
+    except:
+        EventMembers.objects.create(
+            event_id=item.id,
+            member_id=profile.id
+        ).save()
+        messages.success(request,'added to your list')
+        return redirect('user') 
+
+#for a non-ambassdor to view the list of events where he has applied
+def appliedEvents(request):
+    try:
+        profile = Profile.objects.get(student_id=request.user.id)
+        members = EventMembers.objects.filter(member_id=profile.id) 
+        events=[]
+        for i in members:
+            a = Events.objects.get(id = i.event_id)
+            events.append(a)
+            print(events)
+        context = {'events': events,'item' : profile}
+    except:
+        events = []
+        
+        context = {'events': events,'item' : profile}
+    return render(request,'user/AppliedEvents.html',context)
+
+#when a non-ambassdor wants to see the event in detail to which he has applied
+#clock to be added here
+def myeventDetailed(request,id):
+    profile = Profile.objects.get(student_id=request.user.id)
+    event = Events.objects.get(pk=id)
+    context = {'event': event,'item' : profile}
+    return render(request,'user/MyeventDetailed.html',context)

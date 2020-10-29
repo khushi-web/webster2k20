@@ -5,7 +5,7 @@
 
 {% endblock head %}
 {% block body %}
-<h5>MY CREATED EVENTS </h5>
+<h5>EVENT LIST </h5>
 {% if item %}
 
 
@@ -23,7 +23,7 @@
     <tbody>
 
 
-      {%  for i in myeventS %}
+      {%  for i in events %}
 
 
 
@@ -36,7 +36,7 @@
     
         <td>
          
-        <a href="{%url 'eventDetails' i.id %}" class="btn btn-info text-white">View</a>
+        <a href="{%url 'myeventDetailed' i.id %}" class="btn btn-info text-white">View</a>
         </td>
         
 
@@ -46,7 +46,7 @@
 
       {% else %}
 
-      <h6 style="margin-top: 100px;color: #c9302c"> No events created yet </h6>
+      <h1 > Not applied yet </h1>
 
       {% endif %}
 {% endblock body %}
