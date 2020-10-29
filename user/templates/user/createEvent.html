@@ -1,0 +1,22 @@
+{% extends 'user/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/details.css' %}">
+{% endblock head %}
+{% block body %}
+
+    <div class="container mt-5 contact-section">
+
+        <h1>Create an event</h1>
+        <div class="border"></div>
+        <form class="contact-form" action="{% url 'createEvent' %}" method="post">
+          {% csrf_token %}
+          <input type="text" class="contact-form-text my-4" placeholder="Name of event" name="name" required>
+          <input type="number" class="contact-form-text my-4" placeholder="Fees" name="fees" required>
+          <input type="text" class="contact-form-text my-4" placeholder="description" name="description" required>
+          <input type="date" class="contact-form-text my-4" placeholder="Date Hosting" name="dateHosting" required>
+          <input type="submit" class="contact-form-btn" value="Save">
+        </form>
+      </div>
+      
+{% endblock body %}

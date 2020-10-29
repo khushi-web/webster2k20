@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'user',
     'controller',
-    'calendarapp',
+    
 ]
 
 MIDDLEWARE = [

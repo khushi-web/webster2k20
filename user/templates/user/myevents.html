@@ -1,0 +1,52 @@
+
+{% extends 'user/base.html' %}
+{% load static %}
+{% block head %}
+
+{% endblock head %}
+{% block body %}
+<h5>MY CREATED EVENTS </h5>
+{% if item %}
+
+
+<div class="  mt-5 table-responsive">
+  <table class="table table-hover table-dark  " style="background-color:black" >
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Event NAME</th>
+        <th scope="col">Date Hosting</th>
+        <th scope="col">Actions</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {%  for i in myeventS %}
+
+
+
+
+      <tr>
+
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ i.name }}</td>
+        <td>{{ i.dateHost }}</td>
+    
+        <td>
+         
+        <a href="{%url 'eventDetails' i.id %}" class="btn btn-info text-white">View</a>
+        </td>
+        
+
+
+      </tr>
+      {% endfor %}
+
+      {% else %}
+
+      <h6 style="margin-top: 100px;color: #c9302c"> No events created yet </h6>
+
+      {% endif %}
+{% endblock body %}

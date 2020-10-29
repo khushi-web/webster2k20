@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Profile
+from .models import Profile,Events
 from controller.models import Applicants
 from django.contrib.auth.models import User
 # Create your views here.
@@ -60,8 +60,9 @@ def createprofile(request):
             messages.success(request,'Details saved')
             return redirect('user')
     else:
-        
-        return render(request,'user/createprofile.html')
+        profile = Profile.objects.get(student_id=request.user.id)
+        context ={'item' : profile}
+        return render(request,'user/createprofile.html',context)
 #if user clicks on apply then his details will get saved in Applicant model in 
 #controller app
 def apply(request):
@@ -81,10 +82,76 @@ def apply(request):
             ).save()
             messages.success(request,'applied')
             return redirect('user')
-    return render(request,'user/home.html')
-        
+    profile = Profile.objects.get(student_id=request.user.id)
+    context ={'item' : profile}
+    return render(request,'user/home.html',context)
 
+
+def createEvent(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        description = request.POST['description']
+        dateHosting = request.POST['dateHosting']
+        fees = request.POST['fees']
+
+
+        try:
+            profile = Profile.objects.get(student_id=request.user.id)
+            if profile.is_ambassdor == True:
+                Events.objects.create(
+                    name=name,
+                    description=description,
+                    fees = fees,
+                    dateHost = dateHosting,
+                    hoster_id=profile.id,
+                    college = profile.college_name
+                ).save()
+
+                messages.success(request, 'Event successfully Created')
+                return redirect('user')
+            else:
+                messages.warning(request, 'NOT A CAMPUS AMBASSDOR')
+                return redirect('user')
+
+
+        except Profile.DoesNotExist:
+            messages.warning(request, 'You Must Complete Your Profile Before Creating An event')
+            return render(request, 'user/home.html')
+
+    else:
+        profile = Profile.objects.get(student_id=request.user.id)
+        context ={'item' : profile}
+        return render(request, 'user/createEvent.html',context)
+
+        
+#where company can view all job vacancies it posted and can edit it,delete,view appicant
+def myCreatedEvents(request):
+
+    try:
+        profile = Profile.objects.get(student_id=request.user.id)
+        myeventS = Events.objects.filter(hoster_id = profile.id)
+        context = {'myeventS': myeventS,'item' : profile}
+        print(myeventS)
+    except:
+        myeventS = []
+        context = {'myeventS': myeventS,'item' : profile}
+        print(myeventS)
+
+    return render(request,'user/myevents.html',context)
                 
-        
-        
-        
+def eventDetails(request,id):
+    profile = Profile.objects.get(student_id=request.user.id)
+    event = Events.objects.get(pk=id)
+    context = {'event': event,'item' : profile}
+    return render(request,'user/EventDetails.html',context)
+
+def deleteEvent(request,id):
+    profile = Profile.objects.get(student_id=request.user.id)
+    item=Events.objects.get(pk=id)
+    if item.hoster_id ==profile.id:
+        item.delete()
+        messages.warning(request,'Event has been deleted')
+        return redirect('myCreatedEvents')  
+    else:
+        messages.warning(request,'u r not authorized to delete it')
+        return redirect('user') 

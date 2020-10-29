@@ -29,8 +29,14 @@
         <div class="nav-items">
         <li><a href="{% url 'user' %}">Home</a></li>
          <li><a href="{%url 'createprofile'%}">profile</a></li>
-         <li><a href="{% url 'calendarapp:calendar' %}"> Calendar </a></li>
         
+        {% if item.is_ambassdor %}
+        <li><a href="{%url 'createEvent'%}">create event</a></li>
+        <li><a href="{%url 'myCreatedEvents'%}">My created Events</a></li>
+        {% else %}
+        <li><a href="#}">View events</a></li>
+        <li><a href="#}">Applied events</a></li>
+        {% endif %}
         <li><a href="{%url 'logout'%}">logout</a></li>
         
         

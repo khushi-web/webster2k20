@@ -27,7 +27,7 @@ def completedetails(request,id):
     context = {'viewjob':item}
     return render(request,'controller/completedetails.html',context)
 
-def deletejob(request,id):
+def deleteApplication(request,id):
     
     item=Applicants.objects.get(pk=id)
     item.delete()

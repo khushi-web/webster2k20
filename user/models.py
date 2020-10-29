@@ -18,3 +18,14 @@ class Profile(models.Model):
     year = models.DateField()
     def __str__(self):
         return str(self.student)
+
+class Events(models.Model):
+    hoster=models.ForeignKey(Profile,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description=models.CharField(max_length=100)
+    fees = models.IntegerField()
+    college = models.CharField(max_length=255)
+    dateCreated= models.DateTimeField(auto_now_add=True)
+    dateHost = models.DateField()
+    def __str__(self):
+        return self.name
