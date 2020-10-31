@@ -15,4 +15,5 @@ urlpatterns = [
     path('viewEvents',views.viewEvents,name="viewEvents"),
     path('appliedEvents',views.appliedEvents,name="appliedEvents"),
     path('addMember/<int:id>',views.addMember,name="addMember"),
-   ]
+    path('contact/', views.contact, name='contact'), 
+]

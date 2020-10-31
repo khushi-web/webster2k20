@@ -1,0 +1,52 @@
+{% extends 'base1.html' %}
+{% load static %}
+ 
+{% block title %}Contact Us{% endblock title %}
+<link rel="stylesheet" href="{% static 'css/style1.css' %}">
+{% block content %}
+    <div class="section-content">
+  <h1 class="section-header">Get in <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Touch with us</span></h1>
+  <h3>WEBLICIOUS</h3>
+ </div>
+ {% if submitted %}
+ <div class="alert alert-success" role="alert">
+   Your message was submitted successfully. Thank you.
+ </div>
+ {% else %}
+  
+  {% if form.errors %}
+   {% for error in form.errors %} 
+     <div class="alert alert-danger" role="alert">
+      This fields is required : {{ error }}
+    </div>
+   {% endfor %}
+  {% endif %} 
+   
+ <form action="" method="post" novalidate>
+  <div class="col-md-6 form-line">
+   <div class="form-group">
+    <label for="exampleInputUsername">Your name</label>
+    {{ form.name }}
+   </div>
+   <div class="form-group">
+    <label for="exampleInputEmail">Email Address</label>
+    {{ form.email }}
+   </div> 
+   <div class="form-group">
+    <label for="telephone">Subject</label>
+    {{ form.subject }}
+   </div>
+  </div>
+  <div class="col-md-6">
+   <div class="form-group">
+      <label for ="description"> Message</label>
+      {{ form.message }}
+   </div>
+   <div>
+    <button type="submit" value="Submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>  Send Message</button>
+   </div>    
+  </div>
+     {% csrf_token %}
+     </form>
+ {% endif %}
+{% endblock content %}

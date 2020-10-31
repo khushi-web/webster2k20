@@ -1,0 +1,82 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>{% block title %}{% endblock %}</title>   
+ {% load static %} 
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+ <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+ 
+    <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Teko:400,700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+ <link href="{% static 'css/style1.css' %}" rel="stylesheet"> 
+ <link href="{% static 'css/style.css' %}" rel="stylesheet"> 
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+ <link rel="stylesheet" href="{% static 'css/base.css' %}">
+ 
+</head>  
+<body>
+<nav class="nav-bar">
+    <div class="menu-icon">
+      <span class="fas fa-bars">
+      </span></div>
+      <div class="logo">
+      webILICIOUS</div>
+      <div class="nav-items">
+      <li><a href="{% url 'user' %}">Home</a></li>
+       <li><a href="{%url 'createprofile'%}">profile</a></li>
+      
+      {% if item.is_ambassdor %}
+      <li><a href="{%url 'createEvent'%}">create event</a></li>
+      <li><a href="{%url 'myCreatedEvents'%}">My created Events</a></li>
+      <li><a href="/calendar">Calendar</a></li>
+      {% else %}
+      <li><a href="{%url 'contact'%}">Contact Us</a></li>
+      {% endif %}
+      <li><a href="{%url 'logout'%}">logout</a></li>
+       </form>
+      </nav>
+
+         {%for message in messages%}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+<strong>message:</strong> {{ message }}
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div> 
+{% endfor %}
+<header class="text-white">
+    <div class="container text-center">
+      <h1>Contact Us - Python Django Forms and Validation</h1>
+      <p class="lead">Contact Us - Python Django Forms and Validation</p>
+    </div>
+  </header>
+   
+ <section id="contact">
+   <div class="contact-section">
+   <div class="container">
+   {% block content %}
+            {% endblock %}
+   </div>
+   </div>
+ </section>
+</body> 
+</html>
+      
+
+
+
+
+{% block body %}
+
+{% endblock body %}
+
+
+
+
+{% block script %}
+{% endblock script %}
+   

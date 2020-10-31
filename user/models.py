@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django import forms
 # Create your models here.
 
 #profile model having one to one relation with User model of django auth
@@ -35,3 +36,12 @@ class EventMembers(models.Model):
     member = models.ForeignKey(Profile, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.member)
+
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100, label='Your Name', widget=forms.TextInput(attrs={ 'class': 'form-control' }))
+    email = forms.EmailField(label='Your e-mail address', widget=forms.TextInput(attrs={ 'class': 'form-control' }))
+    subject = forms.CharField(max_length=100, widget=forms.TextInput(attrs={ 'class': 'form-control' }))
+    message = forms.CharField(required=False, widget=forms.Textarea(attrs={ 'class': 'form-control' }))
+          
