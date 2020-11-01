@@ -16,4 +16,5 @@ urlpatterns = [
     path('appliedEvents',views.appliedEvents,name="appliedEvents"),
     path('addMember/<int:id>',views.addMember,name="addMember"),
     path('contact/', views.contact, name='contact'), 
+    path('userpage/',views.userpg,name="userpg"),
 ]

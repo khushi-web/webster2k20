@@ -8,7 +8,7 @@ as per the logged in is admin or user '''
 urlpatterns = [
     path('login/',views.loginpage,name="login"),
     path('register/',views.registerpage,name="register"),
-    
+    path('',views.index,name="index"),
     path('logout/', views.logoutuser, name="logout"),
     path('user/', include('user.urls')),
    

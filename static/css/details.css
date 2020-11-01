@@ -4,7 +4,7 @@
     font-family: "montserrat",sans-serif;
   }
   .contact-section{
-    background-color: black;
+    background-color:#74cfbf;
     background-size: cover;
     padding: 40px 0;
   }
@@ -27,7 +27,7 @@
     box-sizing: border-box;
     margin: 16px 0;
     border: 2px;
-    background: black;
+    background: #74cfbf;
     padding: 20px 40px;
     outline: none;
     color: #ddd;

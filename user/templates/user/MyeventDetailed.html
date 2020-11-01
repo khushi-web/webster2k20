@@ -1,7 +1,11 @@
 {% extends 'user/base.html' %}
 {% load static %}
 {% block head %}
-
+<style>
+body{
+        background-image: url("{% static 'img/e1.jpg' %}");
+}
+</style>
 {% endblock head %}
 {% block body %}
 
@@ -39,11 +43,15 @@
                         </tr>
                 </thead>
                 
-
+        
         </table>
 
 
-       
+        <button type="button" class="btn btn-info mx-2" data-toggle="modal"
+                                                data-target="#exampleModal">
+                                                <a href="">
+                                                PAY</a>
+                                        </button>
 </div>
 
 

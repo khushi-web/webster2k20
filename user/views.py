@@ -22,6 +22,7 @@ def userpage(request):
         context ={}
         messages.error(request,'first complete ur profile')
         return render(request, 'user/createprofile.html', context)
+    return render(request,'user/userpage.html')
 
 #create profile function 
 @login_required
@@ -246,4 +247,10 @@ def contact(request):
             form = ContactForm()
             if 'submitted' in request.GET:
                 submitted = True
-                return render(request, 'contact/contact.html', {'form': form, 'submitted': submitted})
+                return render(request, 'user/contact.html', {'form': form, 'submitted': submitted})
+
+        return render(request,'user/contact.html')
+
+def userpg(request):
+    context={}
+    return render(request,'user/userpage.html')

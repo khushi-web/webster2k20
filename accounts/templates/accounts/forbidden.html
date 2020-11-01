@@ -1,4 +1,39 @@
-<h1> you are forbidden to view this</h1>
-forbidden page is under construction in 
-
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>404 error</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" >
+        <style>
+        *
+        {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: 'Poppins', sans-serif;
+            background-color: #88efc8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+        <h2>Oops! Page not found.</h2>
+        <div>
+        <img src="{% static 'img/images.png' %}">
+        </div>
+        <h4>We can't find the page you are looking for</h4>
+        <button type="button" class="main-btn">GO BACK HOME</button>
+        </div>
+    </body>
+</html>
     

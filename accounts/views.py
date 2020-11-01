@@ -110,3 +110,7 @@ def paypage(request):
 def paycheck(request):
     context={}
     return render(request, 'accounts/paycheck.html', context)
+
+def index(request):
+    context={}
+    return render(request,'accounts/index.html',context)
