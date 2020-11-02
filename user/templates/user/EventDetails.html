@@ -4,43 +4,43 @@
 <style>
 body
 {
-        background-image: url("{% static 'img/e1.jpg' %}");
+        background-color: #00FFFF;
 }
 </style>
 {% endblock head %}
 {% block body %}
-
+<font color="white">
 <div class="container  my-5">
         <table class="table table-striped">
                 <thead>
                         <tr>
-                                <th scope="col">Name of Event</th>
-                                <th scope="col">{{event.name}}</th>
+                                <th scope="col"><font color="white">Name of Event</font></th>
+                                <th scope="col"><font color="white">{{event.name}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
-                                <th scope="col">Description</th>
-                                <th scope="col" class="{% cycle 'row1' 'row2' %}">
-                                        {{event.description}}</th>
+                                <th scope="col"><font color="white">Description</font></th>
+                                <th scope="col" class="{% cycle 'row1' 'row2' %}"><font color="white">
+                                        {{event.description}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
-                                <th scope="col">Event Fees</th>
-                                <th scope="col">{{event.fees}}</th>
+                                <th scope="col"><font color="white">Event Fees</font></th>
+                                <th scope="col"><font color="white">{{event.fees}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
-                                <th scope="col">Date Created</th>
-                                <th scope="col">{{event.dateCreated}}</th>
+                                <th scope="col"><font color="white">Date Created</font></th>
+                                <th scope="col"><font color="white">{{event.dateCreated}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
-                                <th scope="col">Date Hosting</th>
-                                <th scope="col">{{event.dateHost}}</th>
+                                <th scope="col"><font color="white">Date Hosting</font></th>
+                                <th scope="col"><font color="white">{{event.dateHost}}</font></th>
                         </tr>
                 </thead>
                 
@@ -128,6 +128,6 @@ body
         </table>
 </div>
 
-
+</font>
 
 {% endblock body %}

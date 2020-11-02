@@ -37,20 +37,14 @@
         {% else %}
         <li><a href="{%url 'viewEvents'%}">View events</a></li>
         <li><a href="{%url 'appliedEvents'%}">Applied events</a></li>
+        <li><a href="{%url 'home'%}">Apply</a></li>
         <li><a href="{%url 'contact'%}">Contact Us</a></li>
         {% endif %}
         <li><a href="{%url 'logout'%}">logout</a></li>
         
         
         </div>
-        <div class="search-icon">
-        <span class="fas fa-search"></span></div>
-        <div class="cancel-icon">
-        <span class="fas fa-times"></span></div>
-        <form action="#">
-                <input type="search" class="search-data" placeholder="Search" required>
-                <button type="submit" class="fas fa-search"></button>
-            </form>
+     
         </nav>
 
            {%for message in messages%}

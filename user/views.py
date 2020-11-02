@@ -10,6 +10,7 @@ from django import forms
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.mail import send_mail, get_connection
+from django.conf import settings
 # Create your views here.
 
 #displays user main page if profile created other wise first ask him to create the profile
@@ -87,7 +88,7 @@ def apply(request):
                 applicant_id = request.user.id,
             ).save()
             messages.success(request,'applied')
-            return redirect('user')
+            return redirect('userpg')
     profile = Profile.objects.get(student_id=request.user.id)
     context ={'item' : profile}
     return render(request,'user/home.html',context)
@@ -116,10 +117,10 @@ def createEvent(request):
                 ).save()
 
                 messages.success(request, 'Event successfully Created')
-                return redirect('user')
+                return redirect('userpg')
             else:
                 messages.warning(request, 'NOT A CAMPUS AMBASSDOR')
-                return redirect('user')
+                return redirect('userpg')
 
 
         except Profile.DoesNotExist:
@@ -254,3 +255,22 @@ def contact(request):
 def userpg(request):
     context={}
     return render(request,'user/userpage.html')
+
+@login_required(login_url='login')
+def paypage(request):
+    if request.method == 'POST':
+        user=request.POST.get('email')
+ #send_mail(subject,message,from_email,to_list,fail_silently=True)
+        subject='payment'
+        message='thankyou for registering for the event . your payement from ******** has been recieved'
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [user, settings.EMAIL_HOST_USER]
+            
+        send_mail(subject,message,from_email,to_list,fail_silently=True)
+        return redirect('paycheck')
+    context={}
+    return render(request, 'user/payment.html', context)
+
+def paycheck(request):
+    context={}
+    return render(request, 'user/paycheck.html', context)

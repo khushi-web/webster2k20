@@ -4,114 +4,107 @@
 {% block head %}
 <title>home</title>
 <style>
-body {
+*
+{
     margin: 0;
-    font-family: sans-serif;
     padding: 0;
+    box-sizing: border-box;
 }
-
-.main {
-    position: absolute;
+.banner
+{
+    position: relative;
     width: 100%;
     height: 100vh;
-    background-position: center;
+    background: url("{% static 'img/e4.png' %}");
     background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url("{% static 'img/wal.jpg' %}");
+    background-positionL bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.main header ul {
-    margin-left: 25%;
-    margin-top: 4%;
+.banner #text{
+    position: relative;
+    font-size: 12em;
+    color: #00FFFF;
 }
-
-
-.main header ul li {
-    display: inline-block;
-}
-
-.main header ul li a {
-    padding: 10px 20px;
-    font-weight: 600;
-    transition: 0.5s;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #fff;
-}
-
-#logo {
+.banner .clouds
+{
     position: absolute;
-    top: 3%;
-    left: 3%;
-    color: #fff;
-    font-family: cursive;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; 
 }
-
-#active {
-    background-color: #fff;
-    color: black;
+.banner .clouds img{
+    position:absolute;
+    bottom: 0;
+    max-width: 100%;
+    animation: animate calc(3s * var(--i)) linear infinite;
 }
-.main header ul li a:hover {
-    background-color: #fff;
-    color: black;
+@keyframes animate{
+    0%
+        {
+            opacity: 0;
+            transform: scale(1);
+        }
+    25%,75%
+        {
+            opacity: 1;
+        }
+        100%
+            {
+                 opacity: 0;
+                 transform: scale(3);
+            }
 }
-
-.texts {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+section{
+    position:relative;
+    padding: 75px 100px;
+    background-color:#00FFFF;
 }
-
-#intro-txt {
-    font-size: 3.8em;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-p {
-    font-size: 1.8em;
-    color: #fff;
-    font-weight: 500;
-    padding-bottom: 5px;
-}
-
-#intro-btn-1 {
-    padding: 16px 32px;
-    color: #fff;
-    font-size: 1.4em;
-    background-color: chocolate;
-    text-decoration: none;
-}
-
-#intro-btn-2 {
-    padding: 16px 32px;
-    color: #fff;
-    font-size: 1.4em;
-    background-color: transparent;
-    text-decoration: none;
-    border: 1px solid white;
-    transition: 0.5s;
-}
-#intro-btn-2:hover {
-    background-color: white;
-    color: black;
+section h2{
+    position: relative;
+    font-size: 2.5em;
+    margin-bottom: 20px;
 }
 </style>
 {% endblock head %}
 {% block body %}
 <body>
-<div class="main">
-        <header>
-            <h1 id="logo">Creative</h1>
-        </header>
-        <div class="texts">
-            <h1 id='intro-txt'>Welcome To The Big Bash!</h1>
-            <p>Create, participate and enjoy !..........</p>
-            <a href="#" id="intro-btn-1">Your events</a>
-            <a href="#" id="intro-btn-2">All</a>
-        </div>
-    </div>
+<div class="banner">
+<h2 id="text">The Big Bash</h2>
+<div class="clouds">
+<img src="{% static 'img/cloud1.png' %}" style="--i:1;">
+<img src="{% static 'img/cloud2.png' %}" style="--i:2;">
+<img src="{% static 'img/cloud3.png' %}" style="--i:3;">
+<img src="{% static 'img/cloud4.png' %}" style="--i:4;">
+<img src="{% static 'img/cloud5.png' %}" style="--i:5;">
+<img src="{% static 'img/cloud1.png' %}" style="--i:10;">
+<img src="{% static 'img/cloud2.png' %}" style="--i:9;">
+<img src="{% static 'img/cloud3.png' %}" style="--i:8;">
+<img src="{% static 'img/cloud4.png' %}" style="--i:7;">
+<img src="{% static 'img/cloud5.png' %}" style="--i:6;">
+</div>
+</div>
+<section>
+<h2> welcome to the big bash</h2>
+<p>   It was the last Friday of the summer term. The malicious sun was going down and could be seen clearly in the peach evening sky. It was Josh Murphy's birthday party.
+He was having a barbeque, and in the surrounding streets the sweet aroma's from the meat sizzling on the barbeque were being carried by the gentle breeze.
+The party was beginning to take shape; the music by now could be heard clearly by the neighboring houses. The party seemed to be hotting up well. People were getting into the groove, the atmosphere was full of relief, excitement and promise. Everyone looking forward to the holiday months, eager to have good time. The entire local crowd was there, those who…show more content…
+Amy was Josh's girl friend; Amy offered congratulations in a some what formal manor provoking a sarcastic thank you from Josh, amused by her politeness.
+While the happy couple was busy exchanging pleasantries Andrew could not help but notice Amy's friends, one in particular who he hadn't seen before. She had silky blonde hair, dazzling blue eyes, the face of an angel and a smile that could wound many boys' hearts.
+Andrew gazed of her for what felt like an eternity.Upon looking around after his brief moment of paralysis Andrew noticed Dan appeared to be suffering form a similar fixation with the divine beauty. She also appeared to notice him as she too was looking at him in a similar way.
+Perhaps Dan's energetic out bursts attracted her to him or perhaps it was well brought up, clean cut with corn fed looks. Never the less it was obvious that there was chemistry between them. Dan had a cheeky (I've been bad) grin on his face while she was just looking radiant and curious.</p>
+</section>
+<script type="text/javascript">
+let text=document.getElementById('text');
+window.addEventListener('scroll', function(){
+    let value = window.scrollY;
+    text.style.marginBottom = value*2 +'px';
+})
+</script>
 </body>
 {% endblock body %}
