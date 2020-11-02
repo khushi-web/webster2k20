@@ -142,7 +142,8 @@ LoGin
 {% for message in messages %}
 					<p id="messages">{{message}}</p>
 				{% endfor %}
-<p> forgot your password ?<a href="">Reset</a></p>
+<p> forgot your password ?<a href="{% url 'reset_password' %}">Reset</a></p>
+<p> don't have an account?<a href="{% url 'register' %}">Signup</a></p>
 </form>
 </div>
 </div>

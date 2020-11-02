@@ -4,7 +4,7 @@
 <style>
 body
 {
-        background-color: #00FFFF;
+        background-image: url("{% static 'img/e5.jpg' %}");
 }
 </style>
 {% endblock head %}
@@ -15,32 +15,32 @@ body
                 <thead>
                         <tr>
                                 <th scope="col"><font color="white">Name of Event</font></th>
-                                <th scope="col"><font color="white">{{event.name}}</font></th>
+                                <th scope="col"><font color="#FFFF00">{{event.name}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
                                 <th scope="col"><font color="white">Description</font></th>
-                                <th scope="col" class="{% cycle 'row1' 'row2' %}"><font color="white">
+                                <th scope="col" class="{% cycle 'row1' 'row2' %}"><font color="#FFFF00">
                                         {{event.description}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
                                 <th scope="col"><font color="white">Event Fees</font></th>
-                                <th scope="col"><font color="white">{{event.fees}}</font></th>
+                                <th scope="col"><font color="#FFFF00">{{event.fees}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
                                 <th scope="col"><font color="white">Date Created</font></th>
-                                <th scope="col"><font color="white">{{event.dateCreated}}</font></th>
+                                <th scope="col"><font color="#FFFF00">{{event.dateCreated}}</font></th>
                         </tr>
                 </thead>
                 <thead>
                         <tr>
                                 <th scope="col"><font color="white">Date Hosting</font></th>
-                                <th scope="col"><font color="white">{{event.dateHost}}</font></th>
+                                <th scope="col"><font color="#FFFF00">{{event.dateHost}}</font></th>
                         </tr>
                 </thead>
                 
