@@ -67,9 +67,8 @@ def createprofile(request):
             messages.success(request,'Details saved')
             return redirect('user')
     else:
-        profile = Profile.objects.get(student_id=request.user.id)
-        context ={'item' : profile}
-        return render(request,'user/createprofile.html',context)
+    
+        return render(request,'user/createprofile.html')
 #if user clicks on apply then his details will get saved in Applicant model in 
 #controller app
 def apply(request):
@@ -88,7 +87,7 @@ def apply(request):
                 applicant_id = request.user.id,
             ).save()
             messages.success(request,'applied')
-            return redirect('userpg')
+            return redirect('user')
     profile = Profile.objects.get(student_id=request.user.id)
     context ={'item' : profile}
     return render(request,'user/home.html',context)
@@ -117,10 +116,10 @@ def createEvent(request):
                 ).save()
 
                 messages.success(request, 'Event successfully Created')
-                return redirect('userpg')
+                return redirect('user')
             else:
                 messages.warning(request, 'NOT A CAMPUS AMBASSDOR')
-                return redirect('userpg')
+                return redirect('user')
 
 
         except Profile.DoesNotExist:

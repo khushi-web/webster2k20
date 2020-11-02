@@ -28,7 +28,7 @@
         <div class="logo">
         webILICIOUS</div>
         <div class="nav-items">
-        <li><a href="{% url 'userpg' %}">Home</a></li>
+        <li><a href="{% url 'user' %}">Home</a></li>
          <li><a href="{%url 'createprofile'%}">profile</a></li>
         
         {% if item.is_ambassdor %}
@@ -37,7 +37,7 @@
         {% else %}
         <li><a href="{%url 'viewEvents'%}">View events</a></li>
         <li><a href="{%url 'appliedEvents'%}">Applied events</a></li>
-        <li><a href="{%url 'home'%}">Apply</a></li>
+      
         <li><a href="{%url 'contact'%}">Contact Us</a></li>
         {% endif %}
         <li><a href="{%url 'logout'%}">logout</a></li>
